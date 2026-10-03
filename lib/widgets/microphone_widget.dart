@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:record/record.dart';
 import 'dart:async';
-import 'package:path_provider/path_provider.dart';
 import '../services/pitch_detector_service.dart';
 import 'pitch_visualizer_widget.dart';
 
@@ -15,21 +13,15 @@ class MicrophoneWidget extends StatefulWidget {
 }
 
 class _MicrophoneWidgetState extends State<MicrophoneWidget> {
-  
-  // Recording mode değişkenleri
-  bool _isRecording = false;
-  late final AudioRecorder _audioRecorder;
-  Timer? _timer;
-  String _recordDuration = '00:00';
 
-  // Analyzing mode değişkenleri
+  // recording mode fiels has been removed 
+  // Analyzing mode variables
+  
   bool _isAnalyzing = false;
   final PitchDetectorService _pitchService = PitchDetectorService();
   PitchData? _currentPitchData;
   
-  // Mod seçimi
-  MicrophoneMode _currentMode = MicrophoneMode.analyzing;
-
+  // current mode variable has been removed. bc we only have analyzing mode now. recording mode rip.
   @override
   void initState() {
     super.initState();
@@ -136,14 +128,12 @@ class _MicrophoneWidgetState extends State<MicrophoneWidget> {
         // Mod seçici toggle
         const SizedBox(height: 20),
 
-        // Aktif moda göre içeri---- sadece analyzing mode olarak değiştirldi
+        // widgets are  determined by the active-current mode(analyzing or recording)
+        // --- now only analyzing mode is implemented, recording mode has been removed bc... it was non-functional?!
           _buildAnalyzingMode(),
       ],
     );
   }
-
-  
-
 
 
   Widget _buildAnalyzingMode() {
