@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 import '../services/pitch_detector_service.dart';
 
 class PitchVisualizerWidget extends StatelessWidget {
@@ -15,7 +14,7 @@ class PitchVisualizerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 260,
       width: double.infinity,
       decoration: BoxDecoration(
         border: Border.all(

@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 totalSteps: widget.exercise.steps.length,
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 1),
             
             // Current exercise info
             Expanded(
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 1),
             
             // Play button ve navigation
             Expanded(
@@ -80,7 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   PlayButtonWidget(
                     audioPath: currentStep.audioPath,
                   ),
-                  const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -101,9 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             
-            // Microphone widget - daha fazla alan
+            // Microphone widget 
             Expanded(
-              flex: 4,
+              flex: 6,
               child: MicrophoneWidget(),
             ),
           ],
