@@ -6,7 +6,12 @@ import 'pitch_visualizer_widget.dart';
 enum MicrophoneMode { recording, analyzing }
 
 class MicrophoneWidget extends StatefulWidget {
-  const MicrophoneWidget({Key? key}) : super(key: key);
+  final ValueChanged<PitchData>? onPitchData;
+
+  const MicrophoneWidget({
+    Key? key,
+    this.onPitchData,
+    }) : super(key: key);
 
   @override
   State<MicrophoneWidget> createState() => _MicrophoneWidgetState();
@@ -54,9 +59,12 @@ class _MicrophoneWidgetState extends State<MicrophoneWidget> {
       // Stream dinle
       _pitchService.listen(
         (pitchData) {
+          if (!mounted) return;
           setState(() {
             _currentPitchData = pitchData;
           });
+          widget.onPitchData?.call(pitchData);
+          ///// burayı biraz kurcalarım
         },
         onError: (error) {
           debugPrint('Pitch detection hatası: $error');

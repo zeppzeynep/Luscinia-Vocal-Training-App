@@ -4,6 +4,7 @@ import '../widgets/current_exercise_widget.dart';
 import '../widgets/play_button_widget.dart';
 import '../widgets/microphone_widget.dart';
 import '../models/exercise_type.dart';
+import '../services/pitch_detector_service.dart';
 
 class HomeScreen extends StatefulWidget {
   final Exercise exercise;
@@ -19,13 +20,32 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentStepIndex = 0;
+  bool isCurrentStepMatched = false;
 
+void handlePitchData(PitchData pitchData) {
+  final currentStep = widget.exercise.steps[currentStepIndex];
+  final expectedNote = currentStep.expectedNote;
+
+  final  isMatched = pitchData.isPitched &&
+      expectedNote != null &&
+      pitchData.noteName == expectedNote;
+
+  if (isCurrentStepMatched != isMatched) {
+    setState(() {
+      isCurrentStepMatched = isMatched;
+    });
+  }
+} /////// KURCALANSIN!
+  
   void nextStep() {
-    if (currentStepIndex < widget.exercise.steps.length - 1) {
-      setState(() {
-        currentStepIndex++;
-      });
-    }
+    final hasNextStep = currentStepIndex < widget.exercise.steps.length-1;
+    if (!hasNextStep || !isCurrentStepMatched) return;
+    
+    setState(() {
+      currentStepIndex++;
+      isCurrentStepMatched = false; // this will reset match status for the new step
+    });
+    
   }
 
   void previousStep() {
@@ -90,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(width: 20),
                       IconButton(
                         icon: const Icon(Icons.arrow_forward),
-                        onPressed: currentStepIndex < widget.exercise.steps.length - 1
+                        onPressed: currentStepIndex < widget.exercise.steps.length - 1 && isCurrentStepMatched
                             ? nextStep
                             : null,
                       ),
@@ -103,7 +123,9 @@ class _HomeScreenState extends State<HomeScreen> {
             // Microphone widget 
             Expanded(
               flex: 6,
-              child: MicrophoneWidget(),
+              child: MicrophoneWidget(
+                onPitchData: handlePitchData,
+              ),
             ),
           ],
         ),
