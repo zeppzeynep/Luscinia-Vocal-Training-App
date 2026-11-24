@@ -49,6 +49,8 @@ class _MicrophoneWidgetState extends State<MicrophoneWidget> {
         return;
       }
 
+      if (!mounted) return;
+
       // Pitch detection başlat
       await _pitchService.start(
         algorithm: PitchAlgorithm.yin,
@@ -58,8 +60,8 @@ class _MicrophoneWidgetState extends State<MicrophoneWidget> {
 
       // Stream dinle
       _pitchService.listen(
-        (pitchData) {
-          if (!mounted) return;
+        (pitchData) {                 // is a anonymous funciton (no name)
+          if (!mounted) return;       // is widget still on the screen (in widget tree)?? 
           setState(() {
             _currentPitchData = pitchData;
           });

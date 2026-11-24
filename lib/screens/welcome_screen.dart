@@ -14,24 +14,16 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               // Logo Container5
               Container(
-                width: 200,
-                height: 200,
+                width: 400,
+                height: 400,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFFF19C79).withOpacity(0.3),
-                      blurRadius: 15,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
+                  
                 ),
                 child: Center(
                   child: Image.asset(
                     'assets/images/logo.png', // Logo dosyasının yolu
-                    width: 150,
-                    height: 150,
+                    width: 400,
+                    height: 400,
                   ),
                 ),
               ),
