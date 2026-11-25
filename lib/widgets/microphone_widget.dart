@@ -34,7 +34,11 @@ class _MicrophoneWidgetState extends State<MicrophoneWidget> {
 
   @override
   void dispose() {
-    _pitchService.dispose();
+    if (_isAnalyzing){
+      _pitchService.stop();
+    } else {
+      _pitchService.dispose();
+    }
     super.dispose();
   }
 
@@ -48,8 +52,6 @@ class _MicrophoneWidgetState extends State<MicrophoneWidget> {
         _showPermissionDialog();
         return;
       }
-
-      if (!mounted) return;
 
       // Pitch detection başlat
       await _pitchService.start(
